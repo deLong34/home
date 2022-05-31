@@ -69,7 +69,7 @@ void printOneLinkCharStack(Stack *stack) {
     printf(" Size: %d \n", stack->size);
 }
 
-//для задания 2.
+//Г¤Г«Гї Г§Г Г¤Г Г­ГЁГї 2.
 
 void ins(Stack *stack, T data) {
     Node *new = (Node*) malloc(sizeof(Node));
@@ -110,7 +110,7 @@ Node* rm(Stack *stack, T data) {
     stack->size--;
     return current;
 }
-//функции копирования
+//ГґГіГ­ГЄГ¶ГЁГЁ ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї
 void copyOneLinkCharStack(Stack *stack, Stack *name) {
     Node *current = stack->head;
     if (current == NULL) {
@@ -124,12 +124,30 @@ void copyOneLinkCharStack(Stack *stack, Stack *name) {
         } while (current != NULL);
     }
 }
-
-
+////// 3 task
+boolean sorted (Stack *stack) {   // РєРѕРґ С„СѓРЅРєС†РёРё РїСЂРѕРІРµСЂРєРё РЅР° СЃРѕСЂС‚РёСЂРѕРІРєСѓ
+    Node *current = stack->head; 
+    int buf = 0;
+    if (current == NULL) {
+        return; 
+    } else { 
+        do { 
+            if (current->dat < current->next->dat) { 
+                buf++; 
+            } else { 
+                current = current->next;
+            }
+        } while (current != NULL);
+    } if (buf == 0) {
+        return true;
+    } else {
+        return false;
+    }
+} 
 
 int main()
 {
-    //задание 1.
+    //Г§Г Г¤Г Г­ГЁГҐ 1.
   // const int len = 13;
    int errFlag = 0;
    T formula[] = "[2/{5*(4+7)]]}";
@@ -137,11 +155,11 @@ int main()
    init(st);
    for (int i = 0; i < 13; i++) {
       if (formula[i] == "(" || formula[i] == "[" || formula[i] == "{") {
-        push(st, formula[i]); //если скобка открывающаяся - кладем её в стек
+        push(st, formula[i]); //ГҐГ±Г«ГЁ Г±ГЄГ®ГЎГЄГ  Г®ГІГЄГ°Г»ГўГ ГѕГ№Г ГїГ±Гї - ГЄГ«Г Г¤ГҐГ¬ ГҐВё Гў Г±ГІГҐГЄ
       }
-      if (formula[i] == ")" && st->head->dat == "(") { //если скобка закрывается и совпадает с последней в стеке (открывающейся)
-        pop(st); //удаляем из стека крайнюю скобку
-      } else if (formula[i] == ")" && st->head->dat != "(") { //если закрывающаяся скобка не аналогична крайней в стеке открывающиейся
+      if (formula[i] == ")" && st->head->dat == "(") { //ГҐГ±Г«ГЁ Г±ГЄГ®ГЎГЄГ  Г§Г ГЄГ°Г»ГўГ ГҐГІГ±Гї ГЁ Г±Г®ГўГЇГ Г¤Г ГҐГІ Г± ГЇГ®Г±Г«ГҐГ¤Г­ГҐГ© Гў Г±ГІГҐГЄГҐ (Г®ГІГЄГ°Г»ГўГ ГѕГ№ГҐГ©Г±Гї)
+        pop(st); //ГіГ¤Г Г«ГїГҐГ¬ ГЁГ§ Г±ГІГҐГЄГ  ГЄГ°Г Г©Г­ГѕГѕ Г±ГЄГ®ГЎГЄГі
+      } else if (formula[i] == ")" && st->head->dat != "(") { //ГҐГ±Г«ГЁ Г§Г ГЄГ°Г»ГўГ ГѕГ№Г ГїГ±Гї Г±ГЄГ®ГЎГЄГ  Г­ГҐ Г Г­Г Г«Г®ГЈГЁГ·Г­Г  ГЄГ°Г Г©Г­ГҐГ© Гў Г±ГІГҐГЄГҐ Г®ГІГЄГ°Г»ГўГ ГѕГ№ГЁГҐГ©Г±Гї
       printf("Sequense not correct, Where %c \n", st->head->dat);
       errFlag++;
       }
@@ -160,7 +178,7 @@ int main()
    }
    if (errFlag == 0 && st->size == 0)
    printf("Sequense correct \n");
-//////////Задание 2.
+//////////Г‡Г Г¤Г Г­ГЁГҐ 2.
    Stack *lst = (Stack*) malloc(sizeof(Stack));
    init(lst);
    Stack *newlist = (Stack*) malloc(sizeof(Stack));
@@ -177,5 +195,11 @@ printOneLinkCharStack(lst);
 printOneLinkCharStack(newlist);
 copyOneLinkCharStack(lst, newlist);
 printOneLinkCharStack(newlist);
+    if (sorted(newlist)) {
+        printf("List is sorted \n");
+    } else {
+        printf("List is not sorted \n");
+    } 
+    
     return 0;
 }
