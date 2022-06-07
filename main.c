@@ -30,6 +30,46 @@ for (int i = 0; i < n; ++i) {
     visited[i] = 0;
     }
 }
+/////////////
+int getUnvisitedVertex (int** matrix, int ver, int size) {
+    for (int i = 0; i < size; i++) {
+        if (get2dInt(matrix, ver, i) == 1 && !visited[i])
+            return i;
+    }
+    return -1;
+}
+
+void depthStackTravers(int** matrix, int size) {
+     Stack* stack = (Stack*) malloc(sizeof(Stack));
+     initStack(stack);
+     visited[0] = true;
+     printf("%d", stack->dat); //любая функция работы с данными ячейки
+     pushStack(stack, 0);
+  
+     while (stack->size) {
+        int guv = getUnvisitedVertex(matrix, stack->head->dat, size);
+        if (guv == -1) {
+        popStack(stack);
+     } else {
+        visited[guv] = true;
+        printf("%d", stack->dat);//любая функция работы с данными ячейки
+        pushStack(stack, guv);
+     }
+     }
+     resetArr();
+}
+
+
+int adMLinks[n] = {0};
+//считаем количество ссылок на каждый узел по матрице
+void adjacencyMatrixCount (int** matrix, const int size) {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            if (matrix[j][i] == 1 && i != j)
+                adMLinks[i]++;
+        }
+    }
+}
 
 int main() {
     depthTravers(0);
